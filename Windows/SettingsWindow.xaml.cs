@@ -12,6 +12,10 @@ namespace PromptHandbook
         {
             InitializeComponent();
             _settings = currentSettings;
+
+            // Устанавливаем владельца для правильного позиционирования
+            this.Owner = Application.Current.MainWindow;
+
             InitializeControls();
         }
 

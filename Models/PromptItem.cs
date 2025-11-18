@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace PromptHandbook
@@ -8,6 +9,7 @@ namespace PromptHandbook
         private string _name;
         private string _description;
         private string _imagePath;
+        private string _folderId;
 
         public string Name
         {
@@ -48,8 +50,28 @@ namespace PromptHandbook
             }
         }
 
+        public string FolderId
+        {
+            get => _folderId;
+            set
+            {
+                if (_folderId != value)
+                {
+                    _folderId = value;
+                    OnPropertyChanged(nameof(FolderId));
+                }
+            }
+        }
+
         public string FolderName { get; set; }
         public DateTime CreatedDate { get; set; }
+
+        public ObservableCollection<string> Tags { get; set; }
+
+        public PromptItem()
+        {
+            Tags = new ObservableCollection<string>();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

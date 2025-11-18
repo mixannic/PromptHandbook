@@ -12,10 +12,12 @@ namespace PromptHandbook
 {
     public partial class MainWindow : Window
     {
+        private ObservableCollection<Folder> _folders;
         private ObservableCollection<PromptItem> _prompts;
         private ObservableCollection<PromptItem> _filteredPrompts;
         private AppSettings _settings;
         private PromptItem _currentPrompt;
+        private Folder _currentFolder;
         private bool _isSearchPlaceholder = true;
 
         public MainWindow()
@@ -51,13 +53,19 @@ namespace PromptHandbook
         {
             DataService.EnsureDatabaseExists();
 
+            // Загрузка папок
+            _folders = new ObservableCollection<Folder>(DataService.LoadFolders());
+            FoldersListBox.ItemsSource = _folders;
+
+            // Загрузка промптов
             _prompts = new ObservableCollection<PromptItem>(DataService.LoadAllPrompts());
             _filteredPrompts = new ObservableCollection<PromptItem>(_prompts);
             PromptsListBox.ItemsSource = _filteredPrompts;
 
-            if (_filteredPrompts.Count > 0)
+            // Выбор первой папки и первого промпта
+            if (_folders.Count > 0)
             {
-                PromptsListBox.SelectedIndex = 0;
+                FoldersListBox.SelectedIndex = 0;
             }
         }
 
@@ -105,9 +113,11 @@ namespace PromptHandbook
         {
             _filteredPrompts.Clear();
 
-            var filtered = string.IsNullOrEmpty(searchText)
-                ? _prompts
-                : _prompts.Where(p => p.Name.ToLower().Contains(searchText));
+            // Фильтруем по выбранной папке и тексту поиска
+            var filtered = _prompts.Where(p =>
+                (_currentFolder == null || p.FolderId == _currentFolder.Id) &&
+                (string.IsNullOrEmpty(searchText) || p.Name.ToLower().Contains(searchText))
+            );
 
             foreach (var item in filtered)
             {
@@ -128,18 +138,30 @@ namespace PromptHandbook
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var newPrompt = DataService.CreateNewPrompt();
+
+            // Присваиваем текущую выбранную папку
+            if (_currentFolder != null)
+            {
+                newPrompt.FolderId = _currentFolder.Id;
+                DataService.SavePrompt(newPrompt);
+            }
+
             _prompts.Insert(0, newPrompt);
 
             // Обновляем фильтрованный список
             if (_isSearchPlaceholder || string.IsNullOrEmpty(SearchTextBox.Text))
             {
-                _filteredPrompts.Insert(0, newPrompt);
+                if (_currentFolder == null || newPrompt.FolderId == _currentFolder.Id)
+                {
+                    _filteredPrompts.Insert(0, newPrompt);
+                }
             }
             else
             {
                 // Проверяем соответствует ли новый элемент фильтру
                 var searchText = SearchTextBox.Text.ToLower();
-                if (newPrompt.Name.ToLower().Contains(searchText))
+                if (newPrompt.Name.ToLower().Contains(searchText) &&
+                    (_currentFolder == null || newPrompt.FolderId == _currentFolder.Id))
                 {
                     _filteredPrompts.Insert(0, newPrompt);
                 }
@@ -170,6 +192,58 @@ namespace PromptHandbook
                     {
                         ClearDetailView();
                     }
+                }
+            }
+        }
+
+        private void AddFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            var newFolder = new Folder { Name = "New Folder" };
+            _folders.Add(newFolder);
+            DataService.SaveFolders(_folders.ToList());
+            FoldersListBox.SelectedItem = newFolder;
+        }
+
+        private void DeleteFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (FoldersListBox.SelectedItem is Folder selectedFolder)
+            {
+                // Не позволяем удалить последнюю папку
+                if (_folders.Count <= 1)
+                {
+                    MessageBox.Show("Cannot delete the last folder.", "Warning",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Проверяем есть ли промпты в этой папке
+                var promptsInFolder = _prompts.Where(p => p.FolderId == selectedFolder.Id).ToList();
+                if (promptsInFolder.Any())
+                {
+                    var result = MessageBox.Show(
+                        $"Folder '{selectedFolder.Name}' contains {promptsInFolder.Count} prompt(s). " +
+                        "These prompts will be moved to the default folder. Continue?",
+                        "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result != MessageBoxResult.Yes)
+                        return;
+
+                    // Перемещаем промпты в первую папку (General)
+                    var defaultFolder = _folders.First(f => f != selectedFolder);
+                    foreach (var prompt in promptsInFolder)
+                    {
+                        prompt.FolderId = defaultFolder.Id;
+                        DataService.SavePrompt(prompt);
+                    }
+                }
+
+                _folders.Remove(selectedFolder);
+                DataService.SaveFolders(_folders.ToList());
+
+                // Выбираем другую папку
+                if (_folders.Count > 0)
+                {
+                    FoldersListBox.SelectedIndex = 0;
                 }
             }
         }
@@ -222,7 +296,8 @@ namespace PromptHandbook
                 if (!_isSearchPlaceholder && !string.IsNullOrEmpty(SearchTextBox.Text))
                 {
                     var searchText = SearchTextBox.Text.ToLower();
-                    var shouldBeVisible = _currentPrompt.Name.ToLower().Contains(searchText);
+                    var shouldBeVisible = _currentPrompt.Name.ToLower().Contains(searchText) &&
+                                         (_currentFolder == null || _currentPrompt.FolderId == _currentFolder.Id);
                     var isCurrentlyVisible = _filteredPrompts.Contains(_currentPrompt);
 
                     if (shouldBeVisible && !isCurrentlyVisible)
@@ -258,6 +333,12 @@ namespace PromptHandbook
                 SaveSettings();
                 ApplyFontSettings();
             }
+        }
+
+        private void FoldersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _currentFolder = FoldersListBox.SelectedItem as Folder;
+            ApplyFilter(_isSearchPlaceholder ? "" : SearchTextBox.Text);
         }
 
         private void PromptsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

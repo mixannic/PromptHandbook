@@ -12,6 +12,7 @@ namespace PromptHandbook
         private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string DatabasePath = Path.Combine(BaseDirectory, "PromptDB");
         private static readonly string SettingsPath = Path.Combine(BaseDirectory, "settings.json");
+        private static readonly string FoldersPath = Path.Combine(DatabasePath, "folders.json");
 
         public static void EnsureDatabaseExists()
         {
@@ -25,6 +26,46 @@ namespace PromptHandbook
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating database directory: {ex.Message}");
+            }
+        }
+
+        public static List<Folder> LoadFolders()
+        {
+            var folders = new List<Folder>();
+            try
+            {
+                if (File.Exists(FoldersPath))
+                {
+                    var foldersJson = File.ReadAllText(FoldersPath);
+                    folders = JsonConvert.DeserializeObject<List<Folder>>(foldersJson) ?? new List<Folder>();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading folders: {ex.Message}");
+            }
+
+            // Создаем папку по умолчанию если нет папок
+            if (!folders.Any())
+            {
+                var defaultFolder = new Folder { Name = "General" };
+                folders.Add(defaultFolder);
+                SaveFolders(folders);
+            }
+
+            return folders;
+        }
+
+        public static void SaveFolders(List<Folder> folders)
+        {
+            try
+            {
+                var foldersJson = JsonConvert.SerializeObject(folders, Formatting.Indented);
+                File.WriteAllText(FoldersPath, foldersJson);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving folders: {ex.Message}");
             }
         }
 
@@ -53,7 +94,8 @@ namespace PromptHandbook
                             {
                                 FolderName = Path.GetFileName(folder),
                                 Name = metadata.ContainsKey("Name") ? metadata["Name"] : "Unnamed",
-                                CreatedDate = DateTime.Parse(metadata["CreatedDate"])
+                                CreatedDate = DateTime.Parse(metadata["CreatedDate"]),
+                                FolderId = metadata.ContainsKey("FolderId") ? metadata["FolderId"] : ""
                             };
 
                             // Загрузка описания
@@ -134,7 +176,8 @@ namespace PromptHandbook
                 var metadata = new Dictionary<string, string>
                 {
                     ["Name"] = prompt.Name,
-                    ["CreatedDate"] = prompt.CreatedDate.ToString("O")
+                    ["CreatedDate"] = prompt.CreatedDate.ToString("O"),
+                    ["FolderId"] = prompt.FolderId ?? ""
                 };
 
                 File.WriteAllText(Path.Combine(promptFolder, "metadata.json"),
@@ -151,8 +194,16 @@ namespace PromptHandbook
                 {
                     var extension = Path.GetExtension(prompt.ImagePath);
                     var newImagePath = Path.Combine(promptFolder, $"image{extension}");
-                    File.Copy(prompt.ImagePath, newImagePath, true);
-                    prompt.ImagePath = newImagePath;
+
+                    try
+                    {
+                        File.Copy(prompt.ImagePath, newImagePath, true);
+                        prompt.ImagePath = newImagePath;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error copying image: {ex.Message}");
+                    }
                 }
             }
             catch (Exception ex)
