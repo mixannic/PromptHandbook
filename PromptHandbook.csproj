@@ -82,6 +82,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Folder.cs" />
+    <Compile Include="RenameFolderWindow.xaml.cs">
+      <DependentUpon>RenameFolderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -98,6 +101,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RenameFolderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="folderclosed.png" />
+    <Resource Include="folderopen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

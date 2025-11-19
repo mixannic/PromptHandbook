@@ -1,0 +1,21 @@
+﻿<Window x:Class="PromptHandbook.RenameFolderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Rename Folder" Height="150" Width="300"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="#FFF0F0F0">
+
+    <StackPanel Margin="20">
+        <TextBlock Text="Enter new folder name:" Margin="0,0,0,10"/>
+        <TextBox Name="FolderNameTextBox" Height="25" 
+                 Text="{Binding NewFolderName, UpdateSourceTrigger=PropertyChanged}"
+                 KeyDown="FolderNameTextBox_KeyDown"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="OK" Click="OKButton_Click" Width="70" Height="25" 
+                   Margin="0,0,10,0" Background="#FFE1E1E1" IsDefault="True"/>
+            <Button Content="Cancel" Click="CancelButton_Click" Width="70" Height="25"
+                   Background="#FFE1E1E1" IsCancel="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

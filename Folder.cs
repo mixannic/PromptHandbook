@@ -7,6 +7,7 @@ namespace PromptHandbook
     {
         private string _name;
         private string _id;
+        private bool _isSelected;
 
         public string Id
         {
@@ -31,6 +32,28 @@ namespace PromptHandbook
                     _name = value;
                     OnPropertyChanged(nameof(Name));
                 }
+            }
+        }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged(nameof(IsSelected));
+                    OnPropertyChanged(nameof(IconPath));
+                }
+            }
+        }
+
+        public string IconPath
+        {
+            get
+            {
+                return IsSelected ? "folderopen.png" : "folderclosed.png";
             }
         }
 

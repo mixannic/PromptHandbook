@@ -79,6 +79,8 @@ namespace PromptHandbook
             if (_folders.Count > 0)
             {
                 FoldersListBox.SelectedIndex = 0;
+                // Устанавливаем первую папку как выбранную
+                _folders[0].IsSelected = true;
             }
         }
 
@@ -215,6 +217,9 @@ namespace PromptHandbook
             _folders.Add(newFolder);
             DataService.SaveFolders(_folders.ToList());
             FoldersListBox.SelectedItem = newFolder;
+
+            // Устанавливаем новую папку как выбранную
+            newFolder.IsSelected = true;
         }
 
         private void DeleteFolderButton_Click(object sender, RoutedEventArgs e)
@@ -350,7 +355,19 @@ namespace PromptHandbook
 
         private void FoldersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Сбрасываем состояние выбора для всех папок
+            foreach (var folder in _folders)
+            {
+                folder.IsSelected = false;
+            }
+
+            // Устанавливаем состояние выбора для текущей папки
             _currentFolder = FoldersListBox.SelectedItem as Folder;
+            if (_currentFolder != null)
+            {
+                _currentFolder.IsSelected = true;
+            }
+
             ApplyFilter(_isSearchPlaceholder ? "" : SearchTextBox.Text);
         }
 
@@ -540,6 +557,46 @@ namespace PromptHandbook
             {
                 MessageBox.Show($"Error moving prompt: {ex.Message}", "Error",
                                MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // ========== FOLDER RENAME FUNCTIONALITY ==========
+
+        private void FoldersListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (FoldersListBox.SelectedItem is Folder selectedFolder)
+            {
+                // Создаем диалоговое окно для переименования
+                var renameWindow = new RenameFolderWindow(selectedFolder.Name);
+                renameWindow.Owner = this;
+                renameWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+                if (renameWindow.ShowDialog() == true)
+                {
+                    string newName = renameWindow.NewFolderName?.Trim();
+
+                    if (!string.IsNullOrEmpty(newName) && newName != selectedFolder.Name)
+                    {
+                        // Проверяем уникальность имени папки
+                        if (_folders.Any(f => f.Name == newName && f != selectedFolder))
+                        {
+                            MessageBox.Show($"A folder with name '{newName}' already exists.",
+                                          "Duplicate Name",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Warning);
+                            return;
+                        }
+
+                        // Обновляем имя папки
+                        selectedFolder.Name = newName;
+                        DataService.SaveFolders(_folders.ToList());
+
+                        // Обновляем отображение
+                        var itemsSource = FoldersListBox.ItemsSource;
+                        FoldersListBox.ItemsSource = null;
+                        FoldersListBox.ItemsSource = itemsSource;
+                    }
+                }
             }
         }
     }
