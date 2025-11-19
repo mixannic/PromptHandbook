@@ -1,100 +1,176 @@
-# Prompt Handbook
+Мощное WPF приложение для управления AI промптами с поддержкой изображений и текста. Организуйте, ищите и категоризируйте ваши промпты с помощью интуитивного трехпанельного интерфейса.
+✨ Возможности
+🗂️ Умная организация
 
-WPF приложение для управления промптами с поддержкой изображений и текста.
+    Система папок - Категоризируйте промпты в пользовательские папки
 
-## Функционал
+    Перетаскивание - Легко перемещайте промпты между папками с помощью drag-and-drop
 
-- 📝 Создание и редактирование промптов
-- 🖼️ Загрузка изображений (PNG, JPG)
-- 🔍 Поиск по названиям
-- ⚙️ Настройки шрифта
-- 💾 Автосохранение в файловую систему
+    Поиск и фильтрация - Быстрый поиск по всем промптам с фильтрацией в реальном времени
 
-## Технологии
+📝 Управление промптами
 
-- C# 7.3
-- WPF
-- .NET Framework 4.7.2
-- Newtonsoft.Json
+    Поддержка текста и изображений - Храните текстовые промпты и reference-изображения
 
-## Установка
+    Детальное редактирование - Комплексный редактор для названий и описаний промптов
 
-1. Скачайте последний релиз
-2. Запустите `PromptHandbook.exe`
-3. Приложение создаст папку `PromptDB` для хранения данных
+    Автосохранение - Изменения автоматически сохраняются в файловую систему
 
-## Сборка
+🎨 Пользовательский опыт
 
+    Трехпанельный интерфейс - Чистый, современный интерфейс с изменяемыми панелями
 
-# Клонируйте репозиторий
-git clone https://github.com/mixannic/PromptHandbook.git
+    Настраиваемые шрифты - Настройте семейство и размер шрифта под ваши предпочтения
 
-# Откройте в Visual Studio
-# Соберите в конфигурации Release
+    Визуальная обратная связь - Четкие визуальные индикаторы для всех взаимодействий
 
----
+💾 Управление данными
 
-##
+    JSON-хранилище - Все данные хранятся в человеко-читаемом JSON формате
 
-# Список изменений v.1.1.0.0 Release/ Changelog v.1.1.0.0 Release
+    Работа с изображениями - Поддержка форматов PNG, JPG, JPEG с автоматическим управлением файлами
 
-### 🔥 Крупные изменения
-- **Добавлена система папок/категорий** для организации промптов
-- **Реализован трехпанельный интерфейс** (папки → промпты → детали)
-- **Создан класс Folder** для управления категориями с INotifyPropertyChanged
+    Резервное копирование - Простое файловое хранилище для легкого бэкапа и миграции
 
-### ✨ Новый функционал
-- Кнопки "Add Folder"/"Delete Folder" для управления папками
-- Автоматическая фильтрация промптов по выбранной папке
-- Папка "General" создается по умолчанию
-- Поддержка перемещения промптов между папками при удалении папки
+🚀 Быстрый старт
+Установка
 
-### 🛠 Технические улучшения
-- Расширен класс PromptItem: добавлены FolderId и коллекция Tags
-- Обновлен DataService: методы для работы с папками (LoadFolders, SaveFolders)
-- Улучшена сериализация: FolderId сохраняется в metadata.json
-- Исправлены проблемы с placeholder в поиске
+    Скачайте последнюю версию со страницы Releases
 
-### 🐛 Исправления ошибок
-- Решена проблема исчезновения списка при взаимодействии с правой панелью
-- Улучшена обработка потери фокуса в поисковой строке
-- Исправлено позиционирование окна настроек (центрирование относительно главного окна)
+    Запустите PromptHandbook.exe
 
-### 📁 Структура данных
-- Новая папка `folders.json` для хранения структуры категорий
-- Обратная совместимость с существующими промптами
-- Автоматическое назначение папки для новых промптов
+    Приложение создаст папку PromptDB для хранения данных
 
----
+Основное использование
+
+    Создайте папки: Используйте "Add Folder" для организации промптов
+
+    Добавьте промпты: Нажмите "Add Prompt" для создания новых записей
+
+    Добавьте изображения: Используйте "Load Image" для прикрепления reference-изображений
+
+    Организуйте: Перетаскивайте промпты между папками
+
+    Ищите: Используйте поле поиска для быстрого нахождения промптов
+
+🛠️ Технические детали
+Архитектура
+
+    Платформа: WPF Desktop Application
+
+    Фреймворк: .NET Framework 4.7.2
+
+    Язык: C# 7.3
+
+    Хранилище: JSON файловая база данных
+
+    Зависимости: Newtonsoft.Json 13.0.4
 
 
-### 🔥 Major Changes
-- **Added folder/category system** for prompt organization
-- **Implemented three-panel interface** (folders → prompts → details)
-- **Created Folder class** for category management with INotifyPropertyChanged
 
-### ✨ New Features
-- "Add Folder"/"Delete Folder" buttons for folder management
-- Automatic prompt filtering by selected folder
-- "General" folder created by default
-- Support for moving prompts between folders when deleting a folder
+📈 История версий
+v1.2.0 - Улучшение Drag-and-Drop
 
-### 🛠 Technical Improvements
-- Extended PromptItem class: added FolderId and Tags collection
-- Updated DataService: methods for folder operations (LoadFolders, SaveFolders)
-- Improved serialization: FolderId saved in metadata.json
-- Fixed search placeholder issues
+    ✅ Реализовано интуитивное перетаскивание между папками
 
-### 🐛 Bug Fixes
-- Fixed list disappearance when interacting with right panel
-- Improved focus loss handling in search box
-- Fixed settings window positioning (centering relative to main window)
+    ✅ Добавлена визуальная обратная связь при перетаскивании
 
-### 📁 Data Structure
-- New `folders.json` file for category structure storage
-- Backward compatibility with existing prompts
-- Automatic folder assignment for new prompts
+    ✅ Улучшена точность определения целевой папки
 
-### 🔧 Updated Files
+v1.1.0 - Система папок
 
-**Full Changelog**: https://github.com/mixannic/PromptHandbook/compare/v.1.0.0.0...v.1.1.0.0
+    ✅ Добавлена организация по папкам
+
+    ✅ Реализовано управление папками
+
+    ✅ Улучшен поиск с фильтрацией по папкам
+
+v1.0.0 - Первый релиз
+
+    ✅ Базовое управление промптами
+
+    ✅ Поддержка изображений
+
+    ✅ Функциональность поиска
+
+🔧 Разработка
+Требования для сборки
+
+    Visual Studio 2022
+
+    .NET Framework 4.7.2 Developer Pack
+
+-------------------------------------------------------------------------------------
+
+A powerful WPF desktop application for managing AI prompts with image and text support. Organize, search, and categorize your prompts efficiently with an intuitive three-panel interface.
+
+![Application Structure](https://via.placeholder.com/800x400/2c3e50/ffffff?text=Three-Panel+Interface)
+
+### ✨ Features
+
+#### 🗂️ Smart Organization
+- **Folder System** - Categorize prompts into custom folders
+- **Drag & Drop** - Easily move prompts between folders with intuitive drag-and-drop
+- **Search & Filter** - Quick search across all prompts with real-time filtering
+
+#### 📝 Rich Prompt Management
+- **Text & Image Support** - Store both text prompts and reference images
+- **Detailed Editing** - Comprehensive editor for prompt names and descriptions
+- **Auto-Save** - Changes are automatically saved to the file system
+
+#### 🎨 User Experience
+- **Three-Panel Interface** - Clean, modern interface with resizable panels
+- **Customizable Fonts** - Adjust font family and size to your preference
+- **Visual Feedback** - Clear visual indicators for all interactions
+
+#### 💾 Data Management
+- **JSON-Based Storage** - All data stored in human-readable JSON format
+- **Image Handling** - Support for PNG, JPG, JPEG formats with automatic file management
+- **Backup Ready** - Simple file-based storage for easy backup and migration
+
+### 🚀 Quick Start
+
+#### Installation
+1. Download the latest release from Releases Page
+2. Run `PromptHandbook.exe`
+3. The application will create a `PromptDB` folder for data storage
+
+#### Basic Usage
+1. **Create Folders**: Use "Add Folder" to organize your prompts
+2. **Add Prompts**: Click "Add Prompt" to create new entries
+3. **Add Images**: Use "Load Image" to attach reference images
+4. **Organize**: Drag and drop prompts between folders
+5. **Search**: Use the search box to quickly find prompts
+
+### 🛠️ Technical Details
+
+#### Architecture
+- **Platform**: WPF Desktop Application
+- **Framework**: .NET Framework 4.7.2
+- **Language**: C# 7.3
+- **Storage**: JSON file-based database
+- **Dependencies**: Newtonsoft.Json 13.0.4
+
+
+### 📈 Version History
+
+#### v1.2.0 - Drag & Drop Enhancement
+- ✅ Implemented intuitive drag-and-drop between folders
+- ✅ Added visual feedback during drag operations
+- ✅ Improved folder targeting precision
+
+#### v1.1.0 - Folder System
+- ✅ Added folder-based organization
+- ✅ Implemented folder management
+- ✅ Enhanced search with folder filtering
+
+#### v1.0.0 - Initial Release
+- ✅ Basic prompt management
+- ✅ Image support
+- ✅ Search functionality
+
+### 🔧 Development
+
+#### Build Requirements
+- Visual Studio 2022
+- .NET Framework 4.7.2 Developer Pack
