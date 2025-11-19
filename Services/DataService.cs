@@ -230,6 +230,22 @@ namespace PromptHandbook
             }
         }
 
+        // Новый метод для перемещения промптов между папками
+        public static bool MovePromptToFolder(PromptItem prompt, Folder targetFolder)
+        {
+            try
+            {
+                prompt.FolderId = targetFolder.Id;
+                SavePrompt(prompt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error moving prompt: {ex.Message}");
+                return false;
+            }
+        }
+
         public static AppSettings LoadSettings()
         {
             try

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
@@ -19,6 +20,8 @@ namespace PromptHandbook
         private PromptItem _currentPrompt;
         private Folder _currentFolder;
         private bool _isSearchPlaceholder = true;
+        private Point _dragStartPoint;
+        private bool _isDragging = false;
 
         public MainWindow()
         {
@@ -30,6 +33,16 @@ namespace PromptHandbook
             // Инициализация placeholder для поиска
             SearchTextBox.GotFocus += SearchTextBox_GotFocus;
             SearchTextBox.LostFocus += SearchTextBox_LostFocus;
+
+            // Подключение событий Drag and Drop
+            PromptsListBox.PreviewMouseLeftButtonDown += PromptsListBox_PreviewMouseLeftButtonDown;
+            PromptsListBox.PreviewMouseMove += PromptsListBox_PreviewMouseMove;
+            PromptsListBox.Drop += PromptsListBox_Drop;
+            PromptsListBox.DragOver += PromptsListBox_DragOver;
+
+            FoldersListBox.Drop += FoldersListBox_Drop;
+            FoldersListBox.DragOver += FoldersListBox_DragOver;
+
             SetSearchPlaceholder();
         }
 
@@ -403,6 +416,130 @@ namespace PromptHandbook
             {
                 MessageBox.Show($"Error loading image: {ex.Message}");
                 DetailImage.Source = null;
+            }
+        }
+
+        // ========== DRAG AND DROP IMPLEMENTATION ==========
+
+        private void PromptsListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Запоминаем точку начала перетаскивания
+            _dragStartPoint = e.GetPosition(null);
+            _isDragging = false;
+        }
+
+        private void PromptsListBox_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && !_isDragging)
+            {
+                Point currentPoint = e.GetPosition(null);
+                Vector diff = _dragStartPoint - currentPoint;
+
+                if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                    Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+                {
+                    _isDragging = true;
+
+                    if (PromptsListBox.SelectedItem is PromptItem selectedPrompt)
+                    {
+                        DragDrop.DoDragDrop(PromptsListBox, selectedPrompt, DragDropEffects.Move);
+                    }
+                }
+            }
+        }
+
+        private void PromptsListBox_DragOver(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent(typeof(PromptItem)))
+            {
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
+            }
+        }
+
+        private void PromptsListBox_Drop(object sender, DragEventArgs e)
+        {
+            // Для будущей реализации перетаскивания между промптами
+        }
+
+        private void FoldersListBox_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(PromptItem)))
+            {
+                e.Effects = DragDropEffects.Move;
+                e.Handled = true;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
+            }
+        }
+
+        private void FoldersListBox_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(PromptItem)))
+            {
+                var prompt = (PromptItem)e.Data.GetData(typeof(PromptItem));
+
+                // Получаем папку, на которую бросили
+                var folder = GetFolderFromDropPosition(e, (ListBox)sender);
+
+                if (folder != null && prompt.FolderId != folder.Id)
+                {
+                    MovePromptToFolder(prompt, folder);
+                }
+            }
+        }
+
+        private Folder GetFolderFromDropPosition(DragEventArgs e, ListBox listBox)
+        {
+            var point = e.GetPosition(listBox);
+            var hit = VisualTreeHelper.HitTest(listBox, point);
+
+            if (hit != null)
+            {
+                var listBoxItem = FindParent<ListBoxItem>(hit.VisualHit);
+                if (listBoxItem != null)
+                {
+                    return listBoxItem.DataContext as Folder;
+                }
+            }
+
+            return listBox.SelectedItem as Folder;
+        }
+
+        private static T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            while (child != null && !(child is T))
+            {
+                child = VisualTreeHelper.GetParent(child);
+            }
+            return child as T;
+        }
+
+        private void MovePromptToFolder(PromptItem prompt, Folder targetFolder)
+        {
+            try
+            {
+                // Сохраняем старую папку для обновления UI
+                var oldFolderId = prompt.FolderId;
+
+                // Обновляем папку промпта
+                prompt.FolderId = targetFolder.Id;
+                DataService.SavePrompt(prompt);
+
+                // Обновляем UI - удаляем из текущего отфильтрованного списка
+                _filteredPrompts.Remove(prompt);
+
+                // Показываем сообщение об успехе
+                MessageBox.Show($"Prompt '{prompt.Name}' moved to '{targetFolder.Name}'",
+                               "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error moving prompt: {ex.Message}", "Error",
+                               MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
