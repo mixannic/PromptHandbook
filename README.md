@@ -1,176 +1,148 @@
-Мощное WPF приложение для управления AI промптами с поддержкой изображений и текста. Организуйте, ищите и категоризируйте ваши промпты с помощью интуитивного трехпанельного интерфейса.
-✨ Возможности
-🗂️ Умная организация
+# Prompt Handbook / Хранилище Промптов
 
-    Система папок - Категоризируйте промпты в пользовательские папки
+![WPF](https://img.shields.io/badge/WPF-.NET%204.7.2-blue)
+![C#](https://img.shields.io/badge/C%23-7.3-green)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
-    Перетаскивание - Легко перемещайте промпты между папками с помощью drag-and-drop
+## Overview / Обзор
 
-    Поиск и фильтрация - Быстрый поиск по всем промптам с фильтрацией в реальном времени
+A comprehensive WPF desktop application for managing AI prompts with rich media support.  
+Комprehensive WPF приложение для управления AI промптами с поддержкой медиафайлов.
 
-📝 Управление промптами
+**English** | **Русский**
+--- | ---
+Professional tool for organizing, categorizing, and managing AI prompts with visual assets. | Профессиональный инструмент для организации, категоризации и управления AI промптами с визуальными элементами.
 
-    Поддержка текста и изображений - Храните текстовые промпты и reference-изображения
+---
 
-    Детальное редактирование - Комплексный редактор для названий и описаний промптов
+## Features / Функциональность
 
-    Автосохранение - Изменения автоматически сохраняются в файловую систему
+### 🗂️ Folder Management / Управление папками
+- **Create, delete, and rename folders** with visual icons
+- **Создание, удаление и переименование папок** с визуальными иконками
+- **Visual folder states** - open icon for selected, closed for others
+- **Визуальные состояния папок** - открытая иконка для выбранной, закрытая для остальных
+- **Double-click renaming** with validation
+- **Переименование двойным щелчком** с валидацией
+- **Unique folder names** enforcement
+- **Проверка уникальности имен** папок
 
-🎨 Пользовательский опыт
+### 📝 Prompt Management / Управление промптами
+- **Create and delete prompts** with rich content
+- **Создание и удаление промптов** с богатым содержимым
+- **Image support** - attach PNG/JPG images to prompts
+- **Поддержка изображений** - прикрепление PNG/JPG к промптам
+- **Text descriptions** with auto-save
+- **Текстовые описания** с автосохранением
+- **Search and filter** across all prompts
+- **Поиск и фильтрация** по всем промптам
 
-    Трехпанельный интерфейс - Чистый, современный интерфейс с изменяемыми панелями
+### 🎯 User Interface / Пользовательский интерфейс
+- **Three-panel layout** for optimal workflow
+- **Трехпанельный интерфейс** для оптимальной работы
+- **Drag-and-drop** between folders
+- **Перетаскивание** между папками
+- **Visual feedback** with cursor changes and effects
+- **Визуальная обратная связь** с изменением курсора и эффектами
+- **Customizable fonts** and sizes
+- **Настраиваемые шрифты** и размеры
 
-    Настраиваемые шрифты - Настройте семейство и размер шрифта под ваши предпочтения
+### 💾 Data Management / Управление данными
+- **JSON-based storage** with structured organization
+- **JSON-хранилище** со структурированной организацией
+- **Automatic saving** on focus loss
+- **Автосохранение** при потере фокуса
+- **File system integration** for images
+- **Интеграция с файловой системой** для изображений
 
-    Визуальная обратная связь - Четкие визуальные индикаторы для всех взаимодействий
+---
 
-💾 Управление данными
+## Installation & Running / Установка и запуск
 
-    JSON-хранилище - Все данные хранятся в человеко-читаемом JSON формате
+### Prerequisites / Требования
+- **.NET Framework 4.7.2** or later
+- **Windows 7** or newer
+- **Visual Studio 2022** (for development)
 
-    Работа с изображениями - Поддержка форматов PNG, JPG, JPEG с автоматическим управлением файлами
+### Running the Application / Запуск приложения
+1. **Download the latest release**
+2. **Extract to desired location**
+3. **Run `PromptHandbook.exe`**
 
-    Резервное копирование - Простое файловое хранилище для легкого бэкапа и миграции
 
-🚀 Быстрый старт
-Установка
+Usage Guide / Руководство по использованию
+Basic Operations / Основные операции
 
-    Скачайте последнюю версию со страницы Releases
+    Adding Folders - Click "Add Folder" button or use context menu
 
-    Запустите PromptHandbook.exe
+    Добавление папок - Нажмите кнопку "Add Folder" или используйте контекстное меню
 
-    Приложение создаст папку PromptDB для хранения данных
+    Creating Prompts - Click "Add Prompt" to create new prompts in selected folder
 
-Основное использование
+    Создание промптов - Нажмите "Add Prompt" для создания промптов в выбранной папке
 
-    Создайте папки: Используйте "Add Folder" для организации промптов
+    Organizing Content - Drag prompts between folders
 
-    Добавьте промпты: Нажмите "Add Prompt" для создания новых записей
+    Организация контента - Перетаскивайте промпты между папками
 
-    Добавьте изображения: Используйте "Load Image" для прикрепления reference-изображений
+    Editing - Click on prompts to edit name and description
 
-    Организуйте: Перетаскивайте промпты между папками
+    Редактирование - Кликните на промпт для редактирования названия и описания
 
-    Ищите: Используйте поле поиска для быстрого нахождения промптов
+Advanced Features / Расширенные возможности
 
-🛠️ Технические детали
-Архитектура
+    Folder Renaming - Double-click any folder to rename it
 
-    Платформа: WPF Desktop Application
+    Переименование папок - Двойной щелчок по папке для переименования
 
-    Фреймворк: .NET Framework 4.7.2
+    Image Management - Use "Load Image" to attach visuals
 
-    Язык: C# 7.3
+    Управление изображениями - Используйте "Load Image" для прикрепления картинок
 
-    Хранилище: JSON файловая база данных
+    Search - Type in search box to filter prompts
 
-    Зависимости: Newtonsoft.Json 13.0.4
+    Поиск - Вводите текст в поле поиска для фильтрации промптов
 
 
+Technology Stack / Технологии
 
-📈 История версий
-v1.2.0 - Улучшение Drag-and-Drop
+    .NET Framework 4.7.2 - Runtime framework
 
-    ✅ Реализовано интуитивное перетаскивание между папками
+    WPF (Windows Presentation Foundation) - UI framework
 
-    ✅ Добавлена визуальная обратная связь при перетаскивании
+    C# 7.3 - Programming language
 
-    ✅ Улучшена точность определения целевой папки
+    Newtonsoft.Json 13.0.4 - JSON serialization
 
-v1.1.0 - Система папок
+    MVVM Pattern - Architecture pattern
 
-    ✅ Добавлена организация по папкам
+Development / Разработка
+Recent Enhancements / Последние улучшения
 
-    ✅ Реализовано управление папками
+    ✅ Folder icon system with visual states
 
-    ✅ Улучшен поиск с фильтрацией по папкам
+    ✅ Система иконок папок с визуальными состояниями
 
-v1.0.0 - Первый релиз
+    ✅ Double-click folder renaming
 
-    ✅ Базовое управление промптами
+    ✅ Переименование папок двойным щелчком
 
-    ✅ Поддержка изображений
+    ✅ Enhanced drag-and-drop with better visual feedback
 
-    ✅ Функциональность поиска
+    ✅ Улучшенное перетаскивание с лучшей визуальной обратной связью
 
-🔧 Разработка
-Требования для сборки
+Planned Features / Запланированные функции
 
-    Visual Studio 2022
+    🔄 Drag reordering within folders
 
-    .NET Framework 4.7.2 Developer Pack
+    🔄 Изменение порядка перетаскиванием в папках
 
--------------------------------------------------------------------------------------
+    🔄 Multi-select operations
 
-A powerful WPF desktop application for managing AI prompts with image and text support. Organize, search, and categorize your prompts efficiently with an intuitive three-panel interface.
+    🔄 Операции с множественным выбором
 
-![Application Structure](https://via.placeholder.com/800x400/2c3e50/ffffff?text=Three-Panel+Interface)
+    🔄 Undo/redo functionality
 
-### ✨ Features
+    🔄 Функциональность отмены/повтора
 
-#### 🗂️ Smart Organization
-- **Folder System** - Categorize prompts into custom folders
-- **Drag & Drop** - Easily move prompts between folders with intuitive drag-and-drop
-- **Search & Filter** - Quick search across all prompts with real-time filtering
 
-#### 📝 Rich Prompt Management
-- **Text & Image Support** - Store both text prompts and reference images
-- **Detailed Editing** - Comprehensive editor for prompt names and descriptions
-- **Auto-Save** - Changes are automatically saved to the file system
-
-#### 🎨 User Experience
-- **Three-Panel Interface** - Clean, modern interface with resizable panels
-- **Customizable Fonts** - Adjust font family and size to your preference
-- **Visual Feedback** - Clear visual indicators for all interactions
-
-#### 💾 Data Management
-- **JSON-Based Storage** - All data stored in human-readable JSON format
-- **Image Handling** - Support for PNG, JPG, JPEG formats with automatic file management
-- **Backup Ready** - Simple file-based storage for easy backup and migration
-
-### 🚀 Quick Start
-
-#### Installation
-1. Download the latest release from Releases Page
-2. Run `PromptHandbook.exe`
-3. The application will create a `PromptDB` folder for data storage
-
-#### Basic Usage
-1. **Create Folders**: Use "Add Folder" to organize your prompts
-2. **Add Prompts**: Click "Add Prompt" to create new entries
-3. **Add Images**: Use "Load Image" to attach reference images
-4. **Organize**: Drag and drop prompts between folders
-5. **Search**: Use the search box to quickly find prompts
-
-### 🛠️ Technical Details
-
-#### Architecture
-- **Platform**: WPF Desktop Application
-- **Framework**: .NET Framework 4.7.2
-- **Language**: C# 7.3
-- **Storage**: JSON file-based database
-- **Dependencies**: Newtonsoft.Json 13.0.4
-
-
-### 📈 Version History
-
-#### v1.2.0 - Drag & Drop Enhancement
-- ✅ Implemented intuitive drag-and-drop between folders
-- ✅ Added visual feedback during drag operations
-- ✅ Improved folder targeting precision
-
-#### v1.1.0 - Folder System
-- ✅ Added folder-based organization
-- ✅ Implemented folder management
-- ✅ Enhanced search with folder filtering
-
-#### v1.0.0 - Initial Release
-- ✅ Basic prompt management
-- ✅ Image support
-- ✅ Search functionality
-
-### 🔧 Development
-
-#### Build Requirements
-- Visual Studio 2022
-- .NET Framework 4.7.2 Developer Pack
