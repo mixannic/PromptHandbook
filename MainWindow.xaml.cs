@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using System.Text;
 
 namespace PromptHandbook
 {
@@ -281,6 +282,18 @@ namespace PromptHandbook
                     try
                     {
                         selectedPrompt.ImagePath = openFileDialog.FileName;
+
+                        // Извлекаем метаданные из PNG если это PNG файл
+                        if (Path.GetExtension(openFileDialog.FileName).ToLower() == ".png")
+                        {
+                            string metadata = ExtractPngMetadata(openFileDialog.FileName);
+                            if (!string.IsNullOrEmpty(metadata))
+                            {
+                                selectedPrompt.Description = metadata;
+                                DescriptionTextBox.Text = metadata;
+                            }
+                        }
+
                         DataService.SavePrompt(selectedPrompt);
                         LoadImage(openFileDialog.FileName);
                     }
@@ -294,6 +307,86 @@ namespace PromptHandbook
             {
                 MessageBox.Show("Please select a prompt first.");
             }
+        }
+
+        private string ExtractPngMetadata(string imagePath)
+        {
+            try
+            {
+                if (!File.Exists(imagePath))
+                    return null;
+
+                byte[] pngBytes = File.ReadAllBytes(imagePath);
+
+                // PNG signature
+                byte[] pngSignature = { 137, 80, 78, 71, 13, 10, 26, 10 };
+
+                // Check if it's a valid PNG
+                for (int i = 0; i < pngSignature.Length; i++)
+                {
+                    if (pngBytes[i] != pngSignature[i])
+                        return null;
+                }
+
+                int position = 8; // Skip PNG signature
+
+                while (position < pngBytes.Length - 8)
+                {
+                    // Read chunk length (big-endian)
+                    int chunkLength = (pngBytes[position] << 24) |
+                                    (pngBytes[position + 1] << 16) |
+                                    (pngBytes[position + 2] << 8) |
+                                    pngBytes[position + 3];
+
+                    // Read chunk type
+                    string chunkType = Encoding.ASCII.GetString(pngBytes, position + 4, 4);
+
+                    if (chunkType == "tEXt")
+                    {
+                        // tEXt chunk contains key-value pairs separated by null byte
+                        int dataStart = position + 8;
+                        int nullPosition = -1;
+
+                        // Find the null separator
+                        for (int i = dataStart; i < dataStart + chunkLength; i++)
+                        {
+                            if (pngBytes[i] == 0)
+                            {
+                                nullPosition = i;
+                                break;
+                            }
+                        }
+
+                        if (nullPosition != -1)
+                        {
+                            string key = Encoding.ASCII.GetString(pngBytes, dataStart, nullPosition - dataStart);
+
+                            // For Automatic1111, we're looking for "parameters" key
+                            if (key == "parameters")
+                            {
+                                int valueLength = chunkLength - (nullPosition - dataStart + 1);
+                                string parameters = Encoding.UTF8.GetString(pngBytes, nullPosition + 1, valueLength);
+                                return parameters;
+                            }
+                        }
+                    }
+                    else if (chunkType == "IEND")
+                    {
+                        // End of PNG file
+                        break;
+                    }
+
+                    // Move to next chunk (length + type + data + CRC)
+                    position += 12 + chunkLength;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Silent fail - if we can't extract metadata, just return null
+                System.Diagnostics.Debug.WriteLine($"Metadata extraction failed: {ex.Message}");
+            }
+
+            return null;
         }
 
         private void NameTextBox_LostFocus(object sender, RoutedEventArgs e)

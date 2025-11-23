@@ -49,11 +49,11 @@
     <DockPanel>
         <!-- Панель инструментов -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#F5F5F5" Height="40">
-            <Button Content="Add Prompt" Click="AddButton_Click" Width="80"/>
-            <Button Content="Delete Prompt" Click="DeleteButton_Click" Width="90"/>
-            <Button Content="Add Folder" Click="AddFolderButton_Click" Width="80" Margin="20,0,0,0"/>
-            <Button Content="Delete Folder" Click="DeleteFolderButton_Click" Width="90"/>
-            <Button Content="Settings" Click="SettingsButton_Click" Width="70" Margin="20,0,0,0"/>
+            <Button Content="Settings" Click="SettingsButton_Click" Width="76"/>
+            <Button Content="Add Folder" Click="AddFolderButton_Click" Width="102"/>
+            <Button Content="Delete Folder" Click="DeleteFolderButton_Click" Width="102"/>
+            <Button Content="Add Prompt" Click="AddButton_Click" Width="102"/>
+            <Button Content="Delete Prompt" Click="DeleteButton_Click" Width="102"/>
         </StackPanel>
 
         <Grid>
