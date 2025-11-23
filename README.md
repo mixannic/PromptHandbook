@@ -1,148 +1,280 @@
-# Prompt Handbook / Хранилище Промптов
+Prompt Handbook / Хранилище Промптов
 
-![WPF](https://img.shields.io/badge/WPF-.NET%204.7.2-blue)
-![C#](https://img.shields.io/badge/C%23-7.3-green)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+https://img.shields.io/badge/WPF-.NET%25204.7.2-blue
+https://img.shields.io/badge/version-1.3.1-green
+https://img.shields.io/badge/license-MIT-lightgrey
+Русская версия
+🚀 Мощное WPF приложение для управления AI промптами
 
-## Overview / Обзор
+Prompt Handbook - это профессиональное десктопное приложение для эффективного управления промптами искусственного интеллекта с поддержкой изображений и текста. Организуйте, ищите и категоризируйте ваши промпты с помощью интуитивного трехпанельного интерфейса.
+✨ Возможности
+🗂️ Умная организация
 
-A comprehensive WPF desktop application for managing AI prompts with rich media support.  
-Комprehensive WPF приложение для управления AI промптами с поддержкой медиафайлов.
+    Система папок - Категоризируйте промпты в пользовательские папки
 
-**English** | **Русский**
---- | ---
-Professional tool for organizing, categorizing, and managing AI prompts with visual assets. | Профессиональный инструмент для организации, категоризации и управления AI промптами с визуальными элементами.
+    Перетаскивание - Легко перемещайте промпты между папками с помощью drag-and-drop
 
----
+    Поиск и фильтрация - Быстрый поиск по всем промптам с фильтрацией в реальном времени
 
-## Features / Функциональность
+    Визуальные иконки - Интуитивные иконки папок с состояниями "открыто/закрыто"
 
-### 🗂️ Folder Management / Управление папками
-- **Create, delete, and rename folders** with visual icons
-- **Создание, удаление и переименование папок** с визуальными иконками
-- **Visual folder states** - open icon for selected, closed for others
-- **Визуальные состояния папок** - открытая иконка для выбранной, закрытая для остальных
-- **Double-click renaming** with validation
-- **Переименование двойным щелчком** с валидацией
-- **Unique folder names** enforcement
-- **Проверка уникальности имен** папок
+📝 Управление промптами
 
-### 📝 Prompt Management / Управление промптами
-- **Create and delete prompts** with rich content
-- **Создание и удаление промптов** с богатым содержимым
-- **Image support** - attach PNG/JPG images to prompts
-- **Поддержка изображений** - прикрепление PNG/JPG к промптам
-- **Text descriptions** with auto-save
-- **Текстовые описания** с автосохранением
-- **Search and filter** across all prompts
-- **Поиск и фильтрация** по всем промптам
+    Поддержка текста и изображений - Храните текстовые промпты и reference-изображения
 
-### 🎯 User Interface / Пользовательский интерфейс
-- **Three-panel layout** for optimal workflow
-- **Трехпанельный интерфейс** для оптимальной работы
-- **Drag-and-drop** between folders
-- **Перетаскивание** между папками
-- **Visual feedback** with cursor changes and effects
-- **Визуальная обратная связь** с изменением курсора и эффектами
-- **Customizable fonts** and sizes
-- **Настраиваемые шрифты** и размеры
+    Автоматическое извлечение метаданных - Автоматическое извлечение промптов из PNG файлов Automatic1111
 
-### 💾 Data Management / Управление данными
-- **JSON-based storage** with structured organization
-- **JSON-хранилище** со структурированной организацией
-- **Automatic saving** on focus loss
-- **Автосохранение** при потере фокуса
-- **File system integration** for images
-- **Интеграция с файловой системой** для изображений
+    Детальное редактирование - Комплексный редактор для названий и описаний промптов
 
----
+    Автосохранение - Изменения автоматически сохраняются в файловую систему
 
-## Installation & Running / Установка и запуск
+🎨 Пользовательский опыт
 
-### Prerequisites / Требования
-- **.NET Framework 4.7.2** or later
-- **Windows 7** or newer
-- **Visual Studio 2022** (for development)
+    Трехпанельный интерфейс - Чистый, современный интерфейс с изменяемыми панелями
 
-### Running the Application / Запуск приложения
-1. **Download the latest release**
-2. **Extract to desired location**
-3. **Run `PromptHandbook.exe`**
+    Настраиваемые шрифты - Настройте семейство и размер шрифта под ваши предпочтения
 
+    Визуальная обратная связь - Четкие визуальные индикаторы для всех взаимодействий
 
-Usage Guide / Руководство по использованию
-Basic Operations / Основные операции
+💾 Управление данными
 
-    Adding Folders - Click "Add Folder" button or use context menu
+    JSON-хранилище - Все данные хранятся в человеко-читаемом JSON формате
 
-    Добавление папок - Нажмите кнопку "Add Folder" или используйте контекстное меню
+    Работа с изображениями - Поддержка форматов PNG, JPG, JPEG с автоматическим управлением файлами
 
-    Creating Prompts - Click "Add Prompt" to create new prompts in selected folder
+    Резервное копирование - Простое файловое хранилище для легкого бэкапа и миграции
 
-    Создание промптов - Нажмите "Add Prompt" для создания промптов в выбранной папке
+🚀 Быстрый старт
+Установка
 
-    Organizing Content - Drag prompts between folders
+    Скачайте последнюю версию со страницы Releases
 
-    Организация контента - Перетаскивайте промпты между папками
+    Запустите PromptHandbook.exe
 
-    Editing - Click on prompts to edit name and description
+    Приложение создаст папку PromptDB для хранения данных
 
-    Редактирование - Кликните на промпт для редактирования названия и описания
+Основное использование
 
-Advanced Features / Расширенные возможности
+    Создайте папки: Используйте "Add Folder" для организации промптов
 
-    Folder Renaming - Double-click any folder to rename it
+    Добавьте промпты: Нажмите "Add Prompt" для создания новых записей
 
-    Переименование папок - Двойной щелчок по папке для переименования
+    Загрузите изображения: Используйте "Load Image" для прикрепления reference-изображений
 
-    Image Management - Use "Load Image" to attach visuals
+    Авто-импорт промптов: При загрузке PNG файлов из Automatic1111 метаданные автоматически извлекаются в описание
 
-    Управление изображениями - Используйте "Load Image" для прикрепления картинок
+    Организуйте: Перетаскивайте промпты между папками
 
-    Search - Type in search box to filter prompts
+    Ищите: Используйте поле поиска для быстрого нахождения промптов
 
-    Поиск - Вводите текст в поле поиска для фильтрации промптов
+🛠️ Технические детали
+Архитектура
 
+    Платформа: WPF Desktop Application
 
-Technology Stack / Технологии
+    Фреймворк: .NET Framework 4.7.2
 
-    .NET Framework 4.7.2 - Runtime framework
+    Язык: C# 7.3
 
-    WPF (Windows Presentation Foundation) - UI framework
+    Хранилище: JSON файловая база данных
 
-    C# 7.3 - Programming language
+    Зависимости: Newtonsoft.Json 13.0.4
 
-    Newtonsoft.Json 13.0.4 - JSON serialization
+Извлечение метаданных Automatic1111
 
-    MVVM Pattern - Architecture pattern
+    Форматы: PNG файлы с tEXt чанками
 
-Development / Разработка
-Recent Enhancements / Последние улучшения
+    Автоматизация: Метаданные автоматически помещаются в поле описания
 
-    ✅ Folder icon system with visual states
+    Совместимость: Полная обратная совместимость с существующими файлами
 
-    ✅ Система иконок папок с визуальными состояниями
+📈 История версий
+v1.3.1 - Извлечение метаданных Automatic1111
 
-    ✅ Double-click folder renaming
+    ✅ Автоматическое извлечение промптов из PNG файлов
 
-    ✅ Переименование папок двойным щелчком
+    ✅ Интеграция с Automatic1111 WebUI
 
-    ✅ Enhanced drag-and-drop with better visual feedback
+    ✅ Умное заполнение поля описания
 
-    ✅ Улучшенное перетаскивание с лучшей визуальной обратной связью
+v1.2.0 - Улучшение Drag-and-Drop
 
-Planned Features / Запланированные функции
+    ✅ Реализовано интуитивное перетаскивание между папками
 
-    🔄 Drag reordering within folders
+    ✅ Добавлена визуальная обратная связь при перетаскивании
 
-    🔄 Изменение порядка перетаскиванием в папках
+    ✅ Улучшена точность определения целевой папки
 
-    🔄 Multi-select operations
+v1.1.0 - Система папок
 
-    🔄 Операции с множественным выбором
+    ✅ Добавлена организация по папкам
 
-    🔄 Undo/redo functionality
+    ✅ Реализовано управление папками
 
-    🔄 Функциональность отмены/повтора
+    ✅ Улучшен поиск с фильтрацией по папкам
 
+v1.0.0 - Первый релиз
 
+    ✅ Базовое управление промптами
+
+    ✅ Поддержка изображений
+
+    ✅ Функциональность поиска
+
+🔧 Разработка
+Требования для сборки
+
+    Visual Studio 2022
+
+    .NET Framework 4.7.2 Developer Pack
+
+Сборка из исходного кода
+bash
+
+git clone https://github.com/your-repo/prompt-handbook.git
+cd prompt-handbook
+open PromptHandbook.sln
+
+English Version
+🚀 Powerful WPF Application for AI Prompt Management
+
+Prompt Handbook is a professional desktop application for efficient management of AI prompts with image and text support. Organize, search, and categorize your prompts using an intuitive three-panel interface.
+✨ Features
+🗂️ Smart Organization
+
+    Folder System - Categorize prompts into custom folders
+
+    Drag & Drop - Easily move prompts between folders with intuitive drag-and-drop
+
+    Search & Filter - Quick search across all prompts with real-time filtering
+
+    Visual Icons - Intuitive folder icons with open/closed states
+
+📝 Rich Prompt Management
+
+    Text & Image Support - Store both text prompts and reference images
+
+    Automatic Metadata Extraction - Automatic prompt extraction from Automatic1111 PNG files
+
+    Detailed Editing - Comprehensive editor for prompt names and descriptions
+
+    Auto-Save - Changes are automatically saved to the file system
+
+🎨 User Experience
+
+    Three-Panel Interface - Clean, modern interface with resizable panels
+
+    Customizable Fonts - Adjust font family and size to your preference
+
+    Visual Feedback - Clear visual indicators for all interactions
+
+💾 Data Management
+
+    JSON-Based Storage - All data stored in human-readable JSON format
+
+    Image Handling - Support for PNG, JPG, JPEG formats with automatic file management
+
+    Backup Ready - Simple file-based storage for easy backup and migration
+
+🚀 Quick Start
+Installation
+
+    Download the latest release from Releases Page
+
+    Run PromptHandbook.exe
+
+    The application will create a PromptDB folder for data storage
+
+Basic Usage
+
+    Create Folders: Use "Add Folder" to organize your prompts
+
+    Add Prompts: Click "Add Prompt" to create new entries
+
+    Add Images: Use "Load Image" to attach reference images
+
+    Auto-Import Prompts: When loading PNG files from Automatic1111, metadata is automatically extracted to description
+
+    Organize: Drag and drop prompts between folders
+
+    Search: Use the search box to quickly find prompts
+
+🛠️ Technical Details
+Architecture
+
+    Platform: WPF Desktop Application
+
+    Framework: .NET Framework 4.7.2
+
+    Language: C# 7.3
+
+    Storage: JSON file-based database
+
+    Dependencies: Newtonsoft.Json 13.0.4
+
+Automatic1111 Metadata Extraction
+
+    Formats: PNG files with tEXt chunks
+
+    Automation: Metadata automatically populated to description field
+
+    Compatibility: Full backward compatibility with existing files
+
+📈 Version History
+v1.3.1 - Automatic1111 Metadata Extraction
+
+    ✅ Automatic prompt extraction from PNG files
+
+    ✅ Integration with Automatic1111 WebUI
+
+    ✅ Smart description field population
+
+v1.2.0 - Drag & Drop Enhancement
+
+    ✅ Implemented intuitive drag-and-drop between folders
+
+    ✅ Added visual feedback during drag operations
+
+    ✅ Improved folder targeting precision
+
+v1.1.0 - Folder System
+
+    ✅ Added folder-based organization
+
+    ✅ Implemented folder management
+
+    ✅ Enhanced search with folder filtering
+
+v1.0.0 - Initial Release
+
+    ✅ Basic prompt management
+
+    ✅ Image support
+
+    ✅ Search functionality
+
+🔧 Development
+Build Requirements
+
+    Visual Studio 2022
+
+    .NET Framework 4.7.2 Developer Pack
+
+Building from Source
+bash
+
+git clone https://github.com/your-repo/prompt-handbook.git
+cd prompt-handbook
+open PromptHandbook.sln
+
+📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+🐛 Reporting Issues
+
+If you find any bugs or have feature requests, please create an issue in the GitHub Issues section.
+
+Теги/Tags: AI prompt-management WPF Automatic1111 stable-diffusion productivity-tool
